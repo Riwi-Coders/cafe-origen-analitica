@@ -1,6 +1,6 @@
 # Café Origen - Analítica
 
-Proyecto desarrollado durante la Sesión 4 de RIWI, enfocado en la resolución de problemas con arreglos, objetos y funciones en JavaScript.
+Proyecto desarrollado en RIWI, enfocado en la resolución de problemas con arreglos, objetos, funciones y métodos de JavaScript.
 
 ## Objetivo
 
@@ -16,41 +16,57 @@ Construir un motor básico de analítica que permita analizar el historial de ve
 
 - `src/datos.js`: contiene el historial original de las 12 ventas.
 - `src/explorar.js`: permite explorar los registros mediante la consola.
-- `src/analitica.js`: contiene las seis funciones de análisis y sus pruebas.
-- `bitacora.md`: documenta los casos borde, el diccionario de datos, los pseudocódigos, las tablas de traza y los resultados de las pruebas.
+- `src/analitica.js`: contiene las funciones de análisis con ciclos y métodos de arreglos.
+- `src/verificar.js`: compara los resultados de las funciones equivalentes.
+- `bitacora.md`: documenta los casos borde, pseudocódigos, tablas de traza, pruebas y análisis de las funciones.
 
 ## Funcionalidades
 
-El proyecto implementa seis funciones:
+### MiniReto 2 — Analítica con ciclos
 
 | Función | Descripción |
 |---|---|
-| `valorVenta(venta)` | Calcula el valor total de una venta. |
-| `totalVendido(ventas)` | Suma el valor de todas las ventas. |
-| `unidadesVendidas(ventas)` | Calcula la cantidad total de unidades vendidas. |
-| `ventaMayor(ventas)` | Identifica la venta con mayor valor. |
-| `ticketPromedio(ventas)` | Calcula el promedio por venta efectiva. |
-| `ventasPorCiudad(ventas, ciudad)` | Calcula el valor vendido en una ciudad determinada. |
+| `valorVenta()` | Calcula el valor de una venta. |
+| `totalVendido()` | Suma los ingresos de todas las ventas. |
+| `unidadesVendidas()` | Calcula las unidades vendidas. |
+| `ventaMayor()` | Identifica la venta de mayor valor. |
+| `ticketPromedio()` | Calcula el promedio por venta efectiva. |
+| `ventasPorCiudad()` | Calcula los ingresos de una ciudad. |
+
+### MiniReto 3 — Métodos de arreglos
+
+| Función | Descripción |
+|---|---|
+| `totalVendidoM()` | Calcula los ingresos utilizando `map()` y `reduce()`. |
+| `unidadesVendidasM()` | Suma las unidades mediante métodos de arreglos. |
+| `ventasPorCiudadM()` | Filtra y suma las ventas de una ciudad. |
+| `totalPorCiudad()` | Agrupa los ingresos por ciudad. |
+| `unidadesPorProducto()` | Agrupa las unidades vendidas por producto. |
+| `topProductosPorValor()` | Obtiene los productos con mayores ingresos. |
 
 ## Ejecución
 
-Desde la raíz del proyecto, ejecutar los siguientes comandos.
+Desde la raíz del proyecto:
 
-### Exploración de datos
+**Explorar los datos:**
 
 ```bash
 node src/explorar.js
 ```
 
-Este comando muestra la cantidad de registros, el primero, el último, un producto específico y la tabla completa de ventas.
-
-### Analítica de ventas
+**Ejecutar la analítica:**
 
 ```bash
 node src/analitica.js
 ```
 
-Este comando ejecuta las pruebas de las seis funciones utilizando el arreglo completo, un arreglo de un solo elemento y un arreglo vacío.
+**Verificar las funciones:**
+
+```bash
+node src/verificar.js
+```
+
+El verificador compara las funciones con ciclos y métodos, mostrando `OK` cuando sus resultados coinciden.
 
 ## Resultados principales
 
@@ -61,8 +77,9 @@ Este comando ejecuta las pruebas de las seis funciones utilizando el arreglo com
 | Unidades vendidas | 21 |
 | Venta de mayor valor | $168.000 COP |
 | Ticket promedio | $89.545,45 COP |
-| Ventas en Medellín | $356.000 COP |
+| Ciudad con mayores ingresos | Medellín — $356.000 COP |
+| Producto con mayores ingresos | Origen Huila 500 g — $294.000 COP |
 
 ## Documentación
 
-En `bitacora.md` se encuentran los casos borde identificados, las decisiones tomadas, los pseudocódigos de las funciones, dos tablas de traza y los resultados de las pruebas realizadas.
+El archivo `bitacora.md` contiene los casos borde, las decisiones tomadas, los pseudocódigos, las tablas de traza, los resultados de las pruebas y el análisis de las cinco preguntas aplicado a las funciones del MiniReto 3.

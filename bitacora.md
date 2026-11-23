@@ -230,3 +230,30 @@ Las pruebas confirman que:
 - `ticketPromedio()` retorna `null` cuando no existen ventas con cantidad mayor que cero, evitando dividir entre cero.
 - `ventasPorCiudad()` compara los nombres de las ciudades sin distinguir mayúsculas y minúsculas, y elimina espacios extremos.
 - Los registros originales se conservan sin modificar sus valores.
+
+# MiniReto 3 — Métodos de arreglos
+
+## 1. Análisis de las funciones
+
+| Función | ¿Qué recorro? | ¿Qué filtro? | ¿Qué transformo? | ¿Qué acumulo? | ¿Cómo agrupo? |
+|---|---|---|---|---|---|
+| `totalVendidoM()` | Ventas | — | Ventas a valores monetarios | Ingresos | — |
+| `unidadesVendidasM()` | Ventas | — | Ventas a cantidades | Unidades | — |
+| `ventasPorCiudadM()` | Ventas | Por ciudad | Normalizo el nombre de la ciudad | Ingresos | — |
+| `totalPorCiudad()` | Ventas | — | Normalizo ciudades | Ingresos | Por ciudad |
+| `unidadesPorProducto()` | Ventas | — | — | Unidades | Por producto |
+| `topProductosPorValor()` | Ventas | — | Objeto a arreglo | Ingresos | Por producto |
+
+## 2. Verificación
+
+Se compararon las funciones desarrolladas con ciclos y sus equivalentes con métodos de arreglos mediante `src/verificar.js`.
+
+- `totalVendido()` vs. `totalVendidoM()`: **OK**
+- `unidadesVendidas()` vs. `unidadesVendidasM()`: **OK**
+- `ventasPorCiudad()` vs. `ventasPorCiudadM()`: **OK**
+
+## 3. Conclusión
+
+Aprendí a utilizar `map()`, `filter()` y `reduce()` para transformar, filtrar y acumular datos. También utilicé objetos para agrupar ventas, `Object.entries()` para convertirlos en arreglos, `sort()` para ordenarlos y `slice()` para seleccionar los primeros resultados.
+
+El arreglo original de ventas no se modificó.
