@@ -257,3 +257,53 @@ Se compararon las funciones desarrolladas con ciclos y sus equivalentes con mét
 Aprendí a utilizar `map()`, `filter()` y `reduce()` para transformar, filtrar y acumular datos. También utilicé objetos para agrupar ventas, `Object.entries()` para convertirlos en arreglos, `sort()` para ordenarlos y `slice()` para seleccionar los primeros resultados.
 
 El arreglo original de ventas no se modificó.
+
+## MiniReto 4 — Reporte y depuración
+
+### Error 1: Ciudades duplicadas
+
+- **Síntoma:** Bogotá aparece más de una vez.
+- **Entrada:** `"Bogotá"`, `"Bogotá "` y `"bogotá"`.
+- **Hipótesis:** Diferencias de escritura generan claves distintas.
+- **Prueba:** Agrupar tres ventas de $26.000 con las variantes anteriores.
+- **Causa probable:** Falta de normalización de las ciudades.
+- **Corrección:** Utilizar `trim()` y `toLowerCase()`.
+- **Resultado:** Una sola Bogotá con $78.000.
+
+### Error 2: Ticket promedio NaN
+
+- **Síntoma:** El ticket promedio muestra `NaN`.
+- **Entrada:** Fecha sin ventas (`2026-01-01`).
+- **Hipótesis:** División entre cero.
+- **Prueba:** Calcular el ticket promedio de un arreglo vacío.
+- **Causa probable:** Operación `0 / 0`.## MiniReto 4 — Reporte y depuración
+
+### Error 1: Ciudades duplicadas
+
+- **Síntoma:** Bogotá aparece más de una vez.
+- **Entrada:** `"Bogotá"`, `"Bogotá "` y `"bogotá"`.
+- **Hipótesis:** Diferencias de escritura generan claves distintas.
+- **Prueba:** Agrupar tres ventas de $26.000 con las variantes anteriores.
+- **Causa probable:** Falta de normalización de las ciudades.
+- **Corrección:** Utilizar `trim()` y `toLowerCase()`.
+- **Resultado:** Una sola Bogotá con $78.000.
+
+### Error 2: Ticket promedio NaN
+
+- **Síntoma:** El ticket promedio muestra `NaN`.
+- **Entrada:** Fecha sin ventas (`2026-01-01`).
+- **Hipótesis:** División entre cero.
+- **Prueba:** Calcular el ticket promedio de un arreglo vacío.
+- **Causa probable:** Operación `0 / 0`.
+- **Corrección:** Retornar `null` cuando no existen ventas efectivas y controlar el resultado en el reporte.
+- **Resultado:** Se muestra "No hay ventas efectivas".
+
+### Conclusión
+
+Las pruebas demuestran que la versión actual previene ambos errores en los casos evaluados. También se refactorizó el resumen por fecha para evitar código repetido.
+- **Corrección:** Retornar `null` cuando no existen ventas efectivas y controlar el resultado en el reporte.
+- **Resultado:** Se muestra "No hay ventas efectivas".
+
+### Conclusión
+
+Las pruebas demuestran que la versión actual previene ambos errores en los casos evaluados. También se refactorizó el resumen por fecha para evitar código repetido.

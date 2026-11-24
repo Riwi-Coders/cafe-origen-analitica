@@ -167,6 +167,12 @@ function topProductosPorValor(ventas, k) {
     return resultado;
 }
 
+function ventasDelDia(ventas, fecha) {
+    const ventaFecha = ventas.filter((venta) => venta.fecha === fecha);
+
+    return ventaFecha;
+}
+
 if (require.main === module) {
     // Pruebas con el arreglo completo
     console.log(valorVenta(ventas[0]));
@@ -200,6 +206,15 @@ if (require.main === module) {
     console.log(totalPorCiudad(ventas));
     console.log("Unidades por producto:", unidadesPorProducto(ventas));
     console.log(topProductosPorValor(ventas, 3));
+    console.log(ventasDelDia(ventas, "2026-09-01"));
+    console.log(ventasDelDia(ventas, "2026-01-01"));
+    const pruebaCiudades = [
+        { ciudad: "Bogotá", cantidad: 1, precio: 26000 },
+        { ciudad: "Bogotá ", cantidad: 1, precio: 26000 },
+        { ciudad: "bogotá", cantidad: 1, precio: 26000 }
+    ];
+
+    console.log(totalPorCiudad(pruebaCiudades));
 }
 
 // Exportaciones
@@ -214,5 +229,7 @@ module.exports = {
     unidadesVendidasM,
     ventasPorCiudadM,
     totalPorCiudad,
-    unidadesPorProducto
+    unidadesPorProducto,
+    topProductosPorValor,
+    ventasDelDia
 };
