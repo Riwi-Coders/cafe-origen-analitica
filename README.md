@@ -119,3 +119,4 @@ Se realizaron pruebas para comprobar que:
 ## Documentación
 
 El archivo `bitacora.md` contiene el diccionario de datos, los casos borde, las decisiones tomadas, los pseudocódigos, las tablas de traza, los resultados de las pruebas y el registro de depuración de la versión v0.1.
+

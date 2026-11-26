@@ -173,6 +173,73 @@ function ventasDelDia(ventas, fecha) {
     return ventaFecha;
 }
 
+//Funciones para mediciones
+
+function totalVendidoMedido(ventas, contador) {
+    let total = 0;
+
+    for (const venta of ventas) {
+        contador.operaciones++
+        total += valorVenta(venta);
+    }
+
+    return total;
+}
+
+function ventaMayorMedido(ventas, contador) {
+    if (ventas.length === 0) {
+        return null;
+    }
+
+    let mayor = ventas[0];
+
+    for (const venta of ventas) {
+        contador.operaciones++
+
+        contador.operaciones++
+        if (valorVenta(venta) > valorVenta(mayor)) {
+            mayor = venta;
+        }
+    }
+
+    return mayor;
+}
+
+function totalPorCiudadMedido(ventas, contador) {
+    const totales = ventas.reduce((acumulador, venta) => {
+        contador.operaciones++
+
+        const ciudadMinuscula = venta.ciudad.trim().toLowerCase();
+        const ciudad = ciudadMinuscula.charAt(0).toUpperCase() + ciudadMinuscula.slice(1);
+
+        contador.operaciones++
+        if (acumulador[ciudad] === undefined) {
+            acumulador[ciudad] = 0;
+        }
+
+        acumulador[ciudad] += valorVenta(venta);
+
+        return acumulador;
+    }, {});
+
+    return totales;
+}
+
+function primeraVenta(ventas) {
+    if (ventas.length === 0){
+        return null
+    }
+    return ventas[0]
+}
+
+function primeraVentaMedido(ventas, contador) {
+    if (ventas.length === 0){
+        return null
+    }
+
+    contador.operaciones++
+    return ventas[0]
+}
 if (require.main === module) {
     // Pruebas con el arreglo completo
     console.log(valorVenta(ventas[0]));
@@ -215,6 +282,18 @@ if (require.main === module) {
     ];
 
     console.log(totalPorCiudad(pruebaCiudades));
+        console.log("---Mediciones---")
+    const contador = {operaciones: 0}
+    console.log(totalVendidoMedido(ventas, contador))
+    console.log(contador)
+
+    const contadorVentaMayor = {operaciones: 0}
+    console.log(ventaMayorMedido(ventas, contadorVentaMayor))
+    console.log(contadorVentaMayor)
+
+    const contadorCiudad = { operaciones: 0 }
+    console.log(totalPorCiudadMedido(ventas, contadorCiudad))
+    console.log(contadorCiudad)
 }
 
 // Exportaciones
@@ -231,5 +310,9 @@ module.exports = {
     totalPorCiudad,
     unidadesPorProducto,
     topProductosPorValor,
-    ventasDelDia
+    ventasDelDia,
+    totalVendidoMedido,
+    ventaMayorMedido,
+    totalPorCiudadMedido,
+    primeraVentaMedido
 };

@@ -40,99 +40,97 @@ El historial de ventas está representado mediante un arreglo de objetos llamado
 
 ---
 
-# MiniReto 2 — Analítica de ventas
+## MiniReto 2 — Analítica de ventas
 
-## 1. Pseudocódigo de las funciones
+### 1. Pseudocódigo de las funciones
 
-### valorVenta(venta)
+#### valorVenta(venta)
 
-    INICIO
-        subtotal ← venta.cantidad * venta.precio
-        RETORNAR subtotal
-    FIN
+```text
+INICIO
+    subtotal ← venta.cantidad * venta.precio
+    RETORNAR subtotal
+FIN
+```
 
-### totalVendido(ventas)
+#### totalVendido(ventas)
 
-    INICIO
-        total ← 0
+```text
+INICIO
+    total ← 0
+    PARA CADA venta EN ventas
+        total ← total + valorVenta(venta)
+    FIN PARA
+    RETORNAR total
+FIN
+```
 
-        PARA CADA venta EN ventas
+#### unidadesVendidas(ventas)
+
+```text
+INICIO
+    total ← 0
+    PARA CADA venta EN ventas
+        total ← total + venta.cantidad
+    FIN PARA
+    RETORNAR total
+FIN
+```
+
+#### ventaMayor(ventas)
+
+```text
+INICIO
+    SI ventas está vacío ENTONCES
+        RETORNAR null
+    FIN SI
+    mayor ← primera venta del arreglo
+    PARA CADA venta EN ventas
+        SI valorVenta(venta) > valorVenta(mayor) ENTONCES
+            mayor ← venta
+        FIN SI
+    FIN PARA
+    RETORNAR mayor
+FIN
+```
+
+#### ticketPromedio(ventas)
+
+```text
+INICIO
+    contador ← 0
+    PARA CADA venta EN ventas
+        SI venta.cantidad > 0 ENTONCES
+            contador ← contador + 1
+        FIN SI
+    FIN PARA
+    SI contador = 0 ENTONCES
+        RETORNAR null
+    FIN SI
+    promedio ← totalVendido(ventas) / contador
+    RETORNAR promedio
+FIN
+```
+
+#### ventasPorCiudad(ventas, ciudad)
+
+```text
+INICIO
+    total ← 0
+    ciudadBuscada ← convertir ciudad a minúsculas y quitar espacios extremos
+    PARA CADA venta EN ventas
+        ciudadActual ← convertir venta.ciudad a minúsculas y quitar espacios extremos
+        SI ciudadActual = ciudadBuscada ENTONCES
             total ← total + valorVenta(venta)
-        FIN PARA
-
-        RETORNAR total
-    FIN
-
-### unidadesVendidas(ventas)
-
-    INICIO
-        total ← 0
-
-        PARA CADA venta EN ventas
-            total ← total + venta.cantidad
-        FIN PARA
-
-        RETORNAR total
-    FIN
-
-### ventaMayor(ventas)
-
-    INICIO
-        SI ventas está vacío ENTONCES
-            RETORNAR null
         FIN SI
+    FIN PARA
+    RETORNAR total
+FIN
+```
 
-        mayor ← primera venta del arreglo
+### 2. Tablas de traza
 
-        PARA CADA venta EN ventas
-            SI valorVenta(venta) > valorVenta(mayor) ENTONCES
-                mayor ← venta
-            FIN SI
-        FIN PARA
-
-        RETORNAR mayor
-    FIN
-
-### ticketPromedio(ventas)
-
-    INICIO
-        contador ← 0
-
-        PARA CADA venta EN ventas
-            SI venta.cantidad > 0 ENTONCES
-                contador ← contador + 1
-            FIN SI
-        FIN PARA
-
-        SI contador = 0 ENTONCES
-            RETORNAR null
-        FIN SI
-
-        promedio ← totalVendido(ventas) / contador
-
-        RETORNAR promedio
-    FIN
-
-### ventasPorCiudad(ventas, ciudad)
-
-    INICIO
-        total ← 0
-        ciudadBuscada ← convertir ciudad a minúsculas y quitar espacios extremos
-
-        PARA CADA venta EN ventas
-            ciudadActual ← convertir venta.ciudad a minúsculas y quitar espacios extremos
-
-            SI ciudadActual = ciudadBuscada ENTONCES
-                total ← total + valorVenta(venta)
-            FIN SI
-        FIN PARA
-
-        RETORNAR total
-    FIN
-
-## 2. Tablas de traza
-
-### Tabla 1 — totalVendido(ventas)
+#### Tabla 1 — totalVendido(ventas)
 
 Esta tabla representa cómo se acumula el valor de las 12 ventas mediante la función `valorVenta()`.
 
@@ -156,7 +154,7 @@ Esta tabla representa cómo se acumula el valor de las 12 ventas mediante la fun
 
 **Observación:** La venta con `id: 8` no incrementa el acumulador porque su cantidad es cero.
 
-### Tabla 2 — ventaMayor(ventas)
+#### Tabla 2 — ventaMayor(ventas)
 
 Esta tabla muestra cómo cambia la variable `mayor` al comparar el valor de cada venta con el máximo encontrado hasta ese momento.
 
@@ -180,11 +178,11 @@ Esta tabla muestra cómo cambia la variable `mayor` al comparar el valor de cada
 
 **Observación:** La variable `mayor` solo cambia cuando encuentra una venta cuyo valor supera al máximo anterior.
 
-## 3. Resultados de las pruebas
+### 3. Resultados de las pruebas
 
 Se realizaron pruebas con el arreglo completo de 12 registros, un arreglo con un solo elemento y un arreglo vacío.
 
-### Arreglo completo
+#### Arreglo completo
 
 | Función | Resultado |
 |---|---|
@@ -195,7 +193,7 @@ Se realizaron pruebas con el arreglo completo de 12 registros, un arreglo con un
 | `ticketPromedio(ventas)` | 89545.45454545454 |
 | `ventasPorCiudad(ventas, "Medellín")` | 356000 |
 
-### Arreglo con un solo elemento
+#### Arreglo con un solo elemento
 
 Se utiliza `[ventas[0]]`, que contiene únicamente el registro de la primera venta.
 
@@ -207,7 +205,7 @@ Se utiliza `[ventas[0]]`, que contiene únicamente el registro de la primera ven
 | `ticketPromedio([ventas[0]])` | 84000 |
 | `ventasPorCiudad([ventas[0]], "Medellín")` | 84000 |
 
-### Arreglo vacío
+#### Arreglo vacío
 
 | Función | Resultado |
 |---|---|
@@ -219,7 +217,7 @@ Se utiliza `[ventas[0]]`, que contiene únicamente el registro de la primera ven
 
 La función `valorVenta()` recibe un objeto individual y no un arreglo, por lo que se prueba directamente con un registro de venta.
 
-### Conclusiones
+#### Conclusiones
 
 Las seis funciones permiten analizar los registros de Café Origen utilizando ciclos, condicionales, acumuladores y funciones reutilizables.
 
@@ -231,9 +229,9 @@ Las pruebas confirman que:
 - `ventasPorCiudad()` compara los nombres de las ciudades sin distinguir mayúsculas y minúsculas, y elimina espacios extremos.
 - Los registros originales se conservan sin modificar sus valores.
 
-# MiniReto 3 — Métodos de arreglos
+## MiniReto 3 — Métodos de arreglos
 
-## 1. Análisis de las funciones
+### 1. Análisis de las funciones
 
 | Función | ¿Qué recorro? | ¿Qué filtro? | ¿Qué transformo? | ¿Qué acumulo? | ¿Cómo agrupo? |
 |---|---|---|---|---|---|
@@ -244,7 +242,7 @@ Las pruebas confirman que:
 | `unidadesPorProducto()` | Ventas | — | — | Unidades | Por producto |
 | `topProductosPorValor()` | Ventas | — | Objeto a arreglo | Ingresos | Por producto |
 
-## 2. Verificación
+### 2. Verificación
 
 Se compararon las funciones desarrolladas con ciclos y sus equivalentes con métodos de arreglos mediante `src/verificar.js`.
 
@@ -252,31 +250,13 @@ Se compararon las funciones desarrolladas con ciclos y sus equivalentes con mét
 - `unidadesVendidas()` vs. `unidadesVendidasM()`: **OK**
 - `ventasPorCiudad()` vs. `ventasPorCiudadM()`: **OK**
 
-## 3. Conclusión
+### 3. Conclusión
 
 Aprendí a utilizar `map()`, `filter()` y `reduce()` para transformar, filtrar y acumular datos. También utilicé objetos para agrupar ventas, `Object.entries()` para convertirlos en arreglos, `sort()` para ordenarlos y `slice()` para seleccionar los primeros resultados.
 
 El arreglo original de ventas no se modificó.
 
 ## MiniReto 4 — Reporte y depuración
-
-### Error 1: Ciudades duplicadas
-
-- **Síntoma:** Bogotá aparece más de una vez.
-- **Entrada:** `"Bogotá"`, `"Bogotá "` y `"bogotá"`.
-- **Hipótesis:** Diferencias de escritura generan claves distintas.
-- **Prueba:** Agrupar tres ventas de $26.000 con las variantes anteriores.
-- **Causa probable:** Falta de normalización de las ciudades.
-- **Corrección:** Utilizar `trim()` y `toLowerCase()`.
-- **Resultado:** Una sola Bogotá con $78.000.
-
-### Error 2: Ticket promedio NaN
-
-- **Síntoma:** El ticket promedio muestra `NaN`.
-- **Entrada:** Fecha sin ventas (`2026-01-01`).
-- **Hipótesis:** División entre cero.
-- **Prueba:** Calcular el ticket promedio de un arreglo vacío.
-- **Causa probable:** Operación `0 / 0`.## MiniReto 4 — Reporte y depuración
 
 ### Error 1: Ciudades duplicadas
 
@@ -301,9 +281,43 @@ El arreglo original de ventas no se modificó.
 ### Conclusión
 
 Las pruebas demuestran que la versión actual previene ambos errores en los casos evaluados. También se refactorizó el resumen por fecha para evitar código repetido.
-- **Corrección:** Retornar `null` cuando no existen ventas efectivas y controlar el resultado en el reporte.
-- **Resultado:** Se muestra "No hay ventas efectivas".
+
+## MiniReto 5 — Análisis de rendimiento
+
+### Predicciones de rendimiento
+
+Antes de realizar las mediciones, predigo que:
+
+- totalVendidoMedido realizará n operaciones.
+- ventaMayorMedido realizará 2n operaciones.
+- totalPorCiudadMedido realizará 2n operaciones.
+
+Si la cantidad de ventas aumenta 10 veces, la cantidad de operaciones también aumentará 10 veces.
+
+Por lo tanto, las tres funciones tendrán una complejidad temporal O(n).
+
+### Resultados experimentales
+
+| n | totalVendido | ventaMayor | totalPorCiudad | primeraVenta |
+|---:|---:|---:|---:|---:|
+| 100 | 100 | 200 | 200 | 1 |
+| 1000 | 1000 | 2000 | 2000 | 1 |
+| 10000 | 10000 | 20000 | 20000 | 1 |
+| 100000 | 100000 | 200000 | 200000 | 1 |
+
+### Clasificación temporal y espacial
+
+- `generarVentas`: O(n), genera un objeto por iteración.
+- `generarVentas`: espacio O(n) incluyendo el arreglo generado y O(1) de espacio auxiliar.
+- `totalVendidoMedido`: O(n), visita cada venta una vez.
+- `ventaMayorMedido`: O(n), realiza n visitas y n comparaciones.
+- `totalPorCiudadMedido`: O(n), realiza n visitas y n comparaciones.
+- `primeraVentaMedido`: O(1), accede directamente al primer elemento.
 
 ### Conclusión
 
-Las pruebas demuestran que la versión actual previene ambos errores en los casos evaluados. También se refactorizó el resumen por fecha para evitar código repetido.
+Las mediciones coincidieron con las predicciones. Al multiplicar la entrada por 10, las operaciones de los algoritmos lineales también se multiplicaron por 10, mientras que las del algoritmo constante permanecieron iguales.
+
+Una iteración puede contener varias operaciones. Por ello, contar operaciones no es necesariamente lo mismo que contar iteraciones.
+
+El criterio de medición utilizado contabiliza las visitas y comparaciones relevantes, no todas las instrucciones ejecutadas por JavaScript.
