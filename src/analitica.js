@@ -240,6 +240,23 @@ function primeraVentaMedido(ventas, contador) {
     contador.operaciones++
     return ventas[0]
 }
+
+// Funcion de Moodle
+function clientesRecurrentes(ventas) {
+    const recurrentes = [];
+
+    for (let i = 0; i < ventas.length; i++) {
+        for (let j = i + 1; j < ventas.length; j++) {
+            if (ventas[i].cliente === ventas[j].cliente &&
+                !recurrentes.includes(ventas[i].cliente)) {
+                recurrentes.push(ventas[i].cliente);
+            }
+        }
+    }
+
+    return recurrentes;
+}
+    
 if (require.main === module) {
     // Pruebas con el arreglo completo
     console.log(valorVenta(ventas[0]));
@@ -294,6 +311,17 @@ if (require.main === module) {
     const contadorCiudad = { operaciones: 0 }
     console.log(totalPorCiudadMedido(ventas, contadorCiudad))
     console.log(contadorCiudad)
+
+    //Funcion Moodle
+    const ventasFuncionMoodle = [
+        { id: 1, cliente: "C01" },
+        { id: 2, cliente: "C02" },
+        { id: 3, cliente: "C01" },
+        { id: 4, cliente: "C03" },
+        { id: 5, cliente: "C02" }
+    ];
+    console.log("---Funcion del Moodle---")
+    console.log(clientesRecurrentes(ventasFuncionMoodle));
 }
 
 // Exportaciones
@@ -314,5 +342,6 @@ module.exports = {
     totalVendidoMedido,
     ventaMayorMedido,
     totalPorCiudadMedido,
-    primeraVentaMedido
+    primeraVentaMedido,
+    clientesRecurrentes
 };

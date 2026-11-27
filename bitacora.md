@@ -321,3 +321,66 @@ Las mediciones coincidieron con las predicciones. Al multiplicar la entrada por 
 Una iteración puede contener varias operaciones. Por ello, contar operaciones no es necesariamente lo mismo que contar iteraciones.
 
 El criterio de medición utilizado contabiliza las visitas y comparaciones relevantes, no todas las instrucciones ejecutadas por JavaScript.
+
+## MiniReto 6 — El reporte que se volvió lento
+
+### Traza de ciclos anidados
+
+Para un arreglo de cinco ventas:
+
+| i | Valores de j | Comparaciones | Acumulado |
+|---|---|---:|---:|
+| 0 | 1, 2, 3, 4 | 4 | 4 |
+| 1 | 2, 3, 4 | 3 | 7 |
+| 2 | 3, 4 | 2 | 9 |
+| 3 | 4 | 1 | 10 |
+| 4 | Ninguno | 0 | 10 |
+
+El ciclo interno comienza en `j = i + 1`, evitando comparar una venta consigo misma y repetir comparaciones inversas.
+
+**Generalización:**
+
+- Comparaciones por iteración de `i`: `n - i - 1`.
+- Comparaciones totales: `n * (n - 1) / 2`.
+- Para cinco ventas: `5 * 4 / 2 = 10`.
+
+El número de comparaciones entre clientes presenta un crecimiento cuadrático, O(n²). El costo adicional de `includes()` se analizará posteriormente.
+
+### Estimación de tiempos
+
+Tomando como referencia la medición de 16.000 ventas (1.257 segundos), se realizaron las siguientes predicciones bajo un modelo de crecimiento cuadrático:
+
+| Ventas | Factor de entrada | Factor cuadrático | Tiempo estimado |
+|---:|---:|---:|---:|
+| 100.000 | 6.25 | 39.0625 | 49.10 s |
+| 1.000.000 | 62.5 | 3906.25 | 4910.16 s |
+
+### Verificación experimental
+
+- Tiempo estimado para 100.000 ventas: 49.10 segundos.
+- Tiempo real: 119.288 segundos.
+- El tiempo real fue aproximadamente 2.43 veces el estimado.
+
+No se ejecutó la prueba de 1.000.000 de ventas debido a su elevado tiempo estimado.
+
+### Análisis del costo oculto
+
+El método `includes()` realiza una búsqueda lineal dentro del arreglo `recurrentes`.
+
+Aunque los dos ciclos anidados presentan un crecimiento cuadrático, `includes()` introduce un recorrido adicional cuando coinciden los clientes.
+
+En el peor caso, pueden existir muchos clientes recurrentes acumulados y numerosas búsquedas de un cliente ubicado al final del arreglo.
+
+Por tanto:
+
+- Ciclos anidados: O(n²).
+- Búsqueda con `includes()`: O(n) en el peor caso.
+- Complejidad temporal completa en el peor caso: O(n³).
+
+Este costo adicional puede contribuir a la diferencia entre el tiempo estimado y el tiempo real, aunque no se ha comprobado que sea su única causa.
+
+### Conclusión
+
+El reporte funciona como un secretario que debe revisar cada venta y compararla con las demás para identificar clientes que han comprado más de una vez. Cada vez que encuentra una coincidencia, también debe revisar la lista de clientes recurrentes para evitar registrar al mismo cliente nuevamente.
+
+A medida que aumenta la cantidad de ventas, estas revisiones se multiplican considerablemente. Durante las pruebas, procesar 100.000 ventas tomó casi dos minutos. Por esta razón, es necesario mejorar la forma en que se identifican y registran los clientes recurrentes, evitando revisiones innecesarias y reduciendo el tiempo de espera.
